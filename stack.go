@@ -9,10 +9,10 @@ import (
 	"strings"
 )
 
-// Frame represents a program counter inside a stack frame.
-// For historical reasons if Frame is interpreted as a uintptr
+// Frame represents a program counter inside a stack frame. pc所在栈帧
+// For historical历史遗留问题 reasons if Frame is interpreted as a uintptr
 // its value represents the program counter + 1.
-type Frame uintptr
+type Frame uintptr //指针
 
 // pc returns the program counter for this frame;
 // multiple frames may have the same PC value.

@@ -1,13 +1,14 @@
 // Package errors provides simple error handling primitives.
 //
-// The traditional error handling idiom in Go is roughly akin to
+// The traditional error handling idiom in Go is roughly akin类似 to
 //
 //     if err != nil {
 //             return err
 //     }
 //
 // which when applied recursively up the call stack results in error reports
-// without context or debugging information. The errors package allows
+// without context or debugging information. 导致没有上下文和调试信息
+// The errors package allows
 // programmers to add context to the failure path in their code in a way
 // that does not destroy the original value of the error.
 //
@@ -48,7 +49,7 @@
 //     default:
 //             // unknown error
 //     }
-//
+// 接口可以不导出，只要实现方法，就可以替换实现，而且接口内部的公开方法，也算得上api的一部分了
 // Although the causer interface is not exported by this package, it is
 // considered a part of its stable public interface.
 //
@@ -61,12 +62,12 @@
 //           printed recursively.
 //     %v    see %s
 //     %+v   extended format. Each Frame of the error's StackTrace will
-//           be printed in detail.
+//           be printed in detail. 会打印堆栈
 //
 // Retrieving the stack trace of an error or wrapper
 //
-// New, Errorf, Wrap, and Wrapf record a stack trace at the point they are
-// invoked. This information can be retrieved with the following interface:
+// New, Errorf, Wrap, and Wrapf record a stack trace at the point they are invoked.
+// This information can be retrieved with the following interface:
 //
 //     type stackTracer interface {
 //             StackTrace() errors.StackTrace
@@ -79,7 +80,7 @@
 // The Frame type represents a call site in the stack trace. Frame supports
 // the fmt.Formatter interface that can be used for printing information about
 // the stack trace of this error. For example:
-//
+//      没什么用啊
 //     if err, ok := err.(stackTracer); ok {
 //             for _, f := range err.StackTrace() {
 //                     fmt.Printf("%+s:%d\n", f, f)
@@ -118,8 +119,8 @@ func Errorf(format string, args ...interface{}) error {
 
 // fundamental is an error that has a message and a stack, but no caller.
 type fundamental struct {
-	msg string
-	*stack
+	msg    string
+	*stack //内嵌，匿名字段
 }
 
 func (f *fundamental) Error() string { return f.msg }
@@ -153,7 +154,7 @@ func WithStack(err error) error {
 }
 
 type withStack struct {
-	error
+	error // 内嵌error 实现Error()
 	*stack
 }
 

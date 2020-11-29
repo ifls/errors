@@ -1,5 +1,5 @@
 // +build go1.13
-
+// 兼容go 1.13 以上
 package errors
 
 import (
